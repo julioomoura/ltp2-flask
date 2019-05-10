@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/crud_curso.css" rel="stylesheet" type="text/css">
+   <title>Resultado da Consulta de Curso</title>
+</head>
+<body>
+   <h1>Resultado da consulta de curso</h1>
+   <hr/>
+   <table>
+       <tr>
+           <th>Nome</th>
+           <th>Sigla</th>
+           <th>Data</th>
+           <th>Créditos</th>
+           <th>Ementa</th>
+       </tr>
+       {{ cursos | safe }}
+   </table>
+   <br/>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a> ||
+   <a href="/parconsultar"> Consultar cursos </a>
+</body>
+</html>

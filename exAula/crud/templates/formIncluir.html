@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <link href="static/crud_curso.css" rel="stylesheet" type="text/css">
+  <title>Formulário para inclusão de curso</title>
+</head>
+<body>
+  <h1>Formulário de inclusão de curso</h1>
+  <hr/>
+  <form action="/incluir" method="post">
+      <table>
+          <tr>
+              <td>Sigla:</td>
+              <td><input type="text" name="sigla" size="30" maxlength="10" required/></td>
+          </tr>
+          <tr>
+              <td>Nome:</td>
+              <td><input type="text" name="nome" size="50" maxlength="50" required/></td>
+          </tr>
+          <tr>
+              <td>Data de abertura do curso:</td>
+              <td><input type="date" name="data" size="3" required/></td>
+          </tr>
+          <tr>
+              <td>Número total de Créditos:</td>
+              <td><input type="number" name="creditos" size="3" min="10" max="500" required/></td>
+          </tr>
+          <tr>
+              <td>Ementa:</td>
+              <td><textarea name="ementa" rows=7 cols=50></textarea></td>
+          </tr>
+      </table>
+      <br/>
+      <input type="submit" value="Incluir Curso"/>
+  </form>
+  <hr/>
+  <br/>
+  <a href="/"> Voltar ao Menu </a>
+</body>
+</html>

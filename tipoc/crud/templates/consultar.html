@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/crud_celular.css" rel="stylesheet" type="text/css">
+   <title>Resultado da Consulta de Celular</title>
+</head>
+<body>
+   <h1>Resultado da consulta de celular</h1>
+   <hr/>
+   <table>
+       <tr>
+           <th>Marca</th>
+           <th>Nome</th>
+           <th>Sistema operacional</th>
+           <th>Preço</th>
+       </tr>
+       {{ celulares | safe }}
+   </table>
+   <br/>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a> ||
+   <a href="/parconsultar"> Consultar celular </a>
+</body>
+</html>
