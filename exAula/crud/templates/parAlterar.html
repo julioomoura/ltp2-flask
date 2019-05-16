@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/crud_curso.css" rel="stylesheet" type="text/css">
+   <title>Busca por Sigla para Alteração de Curso</title>
+</head>
+<body>
+   <h1>Busca por sigla para alteração de curso</h1>
+   <hr/>
+   <form action="/formalterar" method="post">
+       <table>
+           <tr>
+               <td>Sigla do curso:</td>
+               <td><input type="text" name="sigla" size="10" maxlength="10" required/></td>
+           </tr>
+       </table>
+       <br/>
+       <input type="submit" value="Alterar Curso"/>
+   </form>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
+</body>
+</html>

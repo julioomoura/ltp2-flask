@@ -87,3 +87,43 @@ def consultar():
    cs.close()
 
    return render_template('consultar.html', cursos=cursos)
+
+@app.route('/paralterar')
+def parAlterar():
+   return render_template('parAlterar.html')
+
+@app.route('/formalterar', methods=['POST'])
+def formAlterar():
+   # Pegando os dados de parâmetro vindos do formulário parConsultar()
+   sigla = request.form['sigla']
+
+   # Recuperando modelos que satisfazem aos parâmetros de filtragem
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT * FROM tb_curso WHERE sigla_curso=%s;"
+
+   cs = mysql.consultar(comando, [sigla])
+   dados = cs.fetchone()
+   cs.close()
+
+   return render_template('formAlterar.html', idt=dados[0], sigla=dados[1], nome=dados[2], data=dados[3], creditos=dados[4], ementa=dados[5])
+
+@app.route('/alterar', methods=['POST'])
+def alterar():
+   # Recuperando dados do formulário de formAlterar()
+   idt = int(request.form['idt'])
+   sigla = request.form['sigla']
+   nome = request.form['nome']
+   data = request.form['data']
+   creditos = int(request.form['creditos'])
+   ementa = request.form['ementa']
+
+   # Alterando dados no SGBD
+   mysql = sql.SQL("root", "root", "test")
+   comando = "UPDATE tb_curso SET sigla_curso=%s, nome_curso=%s, data_abertura=%s, numero_creditos=%s, ementa_curso=%s WHERE idt_curso=%s;"
+
+   if mysql.executar(comando, [sigla, nome, data, creditos, ementa, idt]):
+       msg="Curso " + sigla + " alterado com sucesso!"
+   else:
+       msg="Falha na alteração de curso."
+
+   return render_template('alterar.html', msg=msg)

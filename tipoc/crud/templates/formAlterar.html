@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/crud_celular.css" rel="stylesheet" type="text/css">
+   <title>Formulário para alteração de celular</title>
+</head>
+<body>
+   <h1>Formulário de alteração de celular</h1>
+   <hr/>
+   <form action="/alterar" method="post">
+       <table>
+           <tr>
+               <td>Marca:</td>
+               <td><input type="text" name="marca" size="30" maxlength="30" required value="{{ marca }}"/></td>
+           </tr>
+           <tr>
+               <td>Nome:</td>
+               <td><input type="text" name="nome" size="30" maxlength="30" required value="{{ nome }}"/></td>
+           </tr>
+           <tr>
+               <td>Sistema Operacional:</td>
+               <td><input type="text" name="sistema" size="15" maxlength="15" required  value="{{ sistema }}"/></td>
+           </tr>
+           <tr>
+               <td>Preço do celular:</td>
+               <td><input type="number" name="preco" size="3" min="0.1" max="100000.00" step="0.1" required value="{{ preco }}"/></td>
+           </tr>
+       </table>
+       <br/>
+       <input type="hidden" name="idt" value="{{ idt }}"/>
+       <input type="submit" value="Alterar Celular"/>
+   </form>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
+</body>
+</html>
+
+<script>
+   // Usando javascript para setar a cor
+
+   s=document.getElementById("selcor");
+   s.value="{{ cor }}";
+</script>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/crud_curso.css" rel="stylesheet" type="text/css">
+   <title>Formulário para alteração de curso</title>
+</head>
+<body>
+   <h1>Formulário de alteração de curso</h1>
+   <hr/>
+   <form action="/alterar" method="post">
+       <table>
+           <tr>
+               <td>Sigla:</td>
+               <td><input type="text" name="sigla" size="10" maxlength="10" required value="{{ sigla }}"/></td>
+           </tr>
+           <tr>
+               <td>Nome:</td>
+               <td><input type="text" name="nome" size="50" maxlength="50" required value="{{ nome }}"/></td>
+           </tr>
+           <tr>
+               <td>Data:</td>
+               <td><input type="date" name="data" required  value="{{ data }}"/></td>
+           </tr>
+           <tr>
+               <td>Número de créditos:</td>
+               <td><input type="number" name="creditos" size="3" min="10" max="500" required value="{{ creditos }}"/></td>
+           </tr>
+           <tr>
+               <td>Ementa:</td>
+               <td><textarea name="ementa" rows=7 cols=50 required value="{{ ementa }}"></textarea></td>
+           </tr>
+       </table>
+       <br/>
+       <input type="hidden" name="idt" value="{{ idt }}"/>
+       <input type="submit" value="Alterar Curso"/>
+   </form>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
+</body>
+</html>
+
+<script>
+   // Usando javascript para setar a cor
+
+   s=document.getElementById("selcor");
+   s.value="{{ cor }}";
+</script>

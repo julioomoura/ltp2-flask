@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/crud_celular.css" rel="stylesheet" type="text/css">
+   <title>Busca por Sigla para Alteração de Celular</title>
+</head>
+<body>
+   <h1>Busca por nome para alteração de celular</h1>
+   <hr/>
+   <form action="/formalterar" method="post">
+       <table>
+           <tr>
+               <td>Nome do celular:</td>
+               <td><input type="text" name="nome" size="30" maxlength="30" required/></td>
+           </tr>
+       </table>
+       <br/>
+       <input type="submit" value="Alterar celular"/>
+   </form>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
+</body>
+</html>

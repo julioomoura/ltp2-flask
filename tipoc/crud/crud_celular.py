@@ -85,3 +85,42 @@ def consultar():
    cs.close()
 
    return render_template('consultar.html', celulares=celulares)
+
+@app.route('/paralterar')
+def parAlterar():
+   return render_template('parAlterar.html')
+
+@app.route('/formalterar', methods=['POST'])
+def formAlterar():
+   # Pegando os dados de parâmetro vindos do formulário parConsultar()
+   nome = request.form['nome']
+
+   # Recuperando modelos que satisfazem aos parâmetros de filtragem
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT * FROM tb_celular WHERE nome_celular=%s;"
+
+   cs = mysql.consultar(comando, [nome])
+   dados = cs.fetchone()
+   cs.close()
+
+   return render_template('formAlterar.html', idt=dados[0], marca=dados[1], nome=dados[2], sistema=dados[3], preco=dados[4])
+
+@app.route('/alterar', methods=['POST'])
+def alterar():
+   # Recuperando dados do formulário de formAlterar()
+   idt = int(request.form['idt'])
+   marca = request.form['marca']
+   nome = request.form['nome']
+   sistema = request.form['sistema']
+   preco = float(request.form['preco'])
+
+   # Alterando dados no SGBD
+   mysql = sql.SQL("root", "root", "test")
+   comando = "UPDATE tb_celular SET marca_celular=%s, nome_celular=%s, sistema_operacional=%s, preco_celular=%s WHERE idt_celular=%s;"
+
+   if mysql.executar(comando, [marca, nome, sistema, preco, idt]):
+       msg="Celular " + marca + " alterado com sucesso!"
+   else:
+       msg="Falha na alteração de celular."
+
+   return render_template('alterar.html', msg=msg)
