@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/crud_curso.css" rel="stylesheet" type="text/css">
+   <title>Escolher Curso para Excluir</title>
+</head>
+<body>
+   <h1>Escolher curso para excluir</h1>
+   <hr/>
+   <table>
+       <tr>
+           <th>Sigla/Nome</th>
+           <th>Créditos</th>
+           <th>Excluir?</th>
+       </tr>
+       {{ cursos | safe }}
+   </table>
+
+   <form action="/excluir" method="post" id="fm">
+       <input type="hidden" name="idt" value="0" id="identificador"/>
+   </form>
+
+   <br/>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
+</body>
+</html>
+
+<script>
+   // Função javascript para setar o identificador do curso para excluir após confirmação
+
+   function jsExcluir(curso, idt){
+     var conf=confirm("Deseja realmente excluir " + curso + " ?");
+     if (conf){
+        var f=document.getElementById("fm");
+        var i=document.getElementById("identificador");
+        i.value=idt;
+        f.submit();
+     }
+   }
+</script>

@@ -127,3 +127,37 @@ def alterar():
        msg="Falha na alteração de curso."
 
    return render_template('alterar.html', msg=msg)
+
+@app.route('/parexcluir')
+def parExcluir():
+   # Recuperando todos os cursos da base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT idt_curso, sigla_curso, nome_curso, numero_creditos, ementa_curso FROM tb_curso ORDER BY sigla_curso;"
+
+   cs = mysql.consultar(comando, ())
+   cursos = ""
+   for [idt, sigla, nome, creditos, ementa] in cs:
+       cursos += "<TR>"
+       cursos += "<TD>" + sigla + " (" + nome + ")" + "</TD>"
+       cursos += "<TD>" + str(creditos) + "</TD>"
+       cursos += "<TD><BUTTON ONCLICK=\"jsExcluir('" + sigla + " (" + nome + ")" + "', " + str(idt) + ")\">Excluir" + "</BUTTON></TD>"
+       cursos += "</TR>"
+   cs.close()
+
+   return render_template('parExcluir.html', cursos=cursos)
+
+@app.route('/excluir', methods=['POST'])
+def excluir():
+   # Recuperando dados do formulário de parExcluir()
+   idt = int(request.form['idt'])
+
+   # Alterando dados no SGBD
+   mysql = sql.SQL("root", "root", "test")
+   comando = "DELETE FROM tb_curso WHERE idt_curso=%s;"
+
+   if mysql.executar(comando, [idt]):
+       msg="Curso excluído com sucesso!"
+   else:
+       msg="Falha na exclusão de curso."
+
+   return render_template('excluir.html', msg=msg)

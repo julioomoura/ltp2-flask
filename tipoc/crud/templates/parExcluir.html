@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/crud_celular.css" rel="stylesheet" type="text/css">
+   <title>Escolher Celular para Excluir</title>
+</head>
+<body>
+   <h1>Escolher celular para excluir</h1>
+   <hr/>
+   <table>
+       <tr>
+           <th>Marca/Nome</th>
+           <th>Preço</th>
+           <th>Excluir?</th>
+       </tr>
+       {{ celulares | safe }}
+   </table>
+
+   <form action="/excluir" method="post" id="fm">
+       <input type="hidden" name="idt" value="0" id="identificador"/>
+   </form>
+
+   <br/>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
+</body>
+</html>
+
+<script>
+   // Função javascript para setar o identificador do celular para excluir após confirmação
+
+   function jsExcluir(celular, idt){
+     var conf=confirm("Deseja realmente excluir " + celular + " ?");
+     if (conf){
+        var f=document.getElementById("fm");
+        var i=document.getElementById("identificador");
+        i.value=idt;
+        f.submit();
+     }
+   }
+</script>

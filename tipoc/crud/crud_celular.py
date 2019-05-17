@@ -124,3 +124,37 @@ def alterar():
        msg="Falha na alteração de celular."
 
    return render_template('alterar.html', msg=msg)
+
+@app.route('/parexcluir')
+def parExcluir():
+   # Recuperando todos os celulares da base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT idt_celular, marca_celular, nome_celular, sistema_operacional, preco_celular FROM tb_celular ORDER BY preco_celular;"
+
+   cs = mysql.consultar(comando, ())
+   celulares = ""
+   for [idt, marca, nome, sistema, preco] in cs:
+       celulares += "<TR>"
+       celulares += "<TD>" + marca + " " + nome  + "</TD>"
+       celulares += "<TD>" + str(preco) + "</TD>"
+       celulares += "<TD><BUTTON ONCLICK=\"jsExcluir('" + marca + " (" + nome + ")" + "', " + str(idt) + ")\">Excluir" + "</BUTTON></TD>"
+       celulares += "</TR>"
+   cs.close()
+
+   return render_template('parExcluir.html', celulares=celulares)
+
+@app.route('/excluir', methods=['POST'])
+def excluir():
+   # Recuperando dados do formulário de parExcluir()
+   idt = int(request.form['idt'])
+
+   # Alterando dados no SGBD
+   mysql = sql.SQL("root", "root", "test")
+   comando = "DELETE FROM tb_celular WHERE itd_celular=%s;"
+
+   if mysql.executar(comando, [idt]):
+       msg="Celular excluído com sucesso!"
+   else:
+       msg="Falha na exclusão de celular."
+
+   return render_template('excluir.html', msg=msg)
