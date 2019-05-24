@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/ajax.css" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="static/ajax.js"></script>
+   <title>Consultar país e estado</title>
+</head>
+<body>
+   <h1>Consultar País e Estado</h1>
+   <hr/>
+   <div>
+       <table>
+           <tr>
+              <td>Países</td>
+              <td>{{ paises | safe }}</td>
+           </tr>
+       </table>
+       <br/>
+       <button onclick="exec()">Consultar Estados</button>
+   </div>
+   <br/>
+   <div id="divEstados">
+       Resultado
+   </div>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
+</body>
+</html>
+
+<script>
+   function exec(){
+     var idIdt = document.getElementById("idt").value;
+     chamarURL("\estados", "divEstados", "pais=" + idIdt);
+   }
+</script>

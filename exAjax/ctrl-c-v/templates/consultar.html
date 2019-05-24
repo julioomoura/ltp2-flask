@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/ajax.css" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="static/ajax.js"></script>
+   <title>Consultar tipo e software</title>
+</head>
+<body>
+   <h1>Consultar Tipo e Software</h1>
+   <hr/>
+   <div>
+       <table>
+           <tr>
+              <td>Tipos de Software:</td>
+              <td>{{ tipos | safe }}</td>
+           </tr>
+       </table>
+       <br/>
+       <button onclick="exec()">Consultar Softwares</button>
+   </div>
+   <br/>
+   <div id="divSoftwares">
+       Resultado
+   </div>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
+</body>
+</html>
+
+<script>
+   function exec(){
+     var idIdt = document.getElementById("idt").value;
+     chamarURL("\softwares", "divSoftwares", "tipo=" + idIdt);
+   }
+</script>

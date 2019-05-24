@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/ajax.css" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="static/ajax.js"></script>
+   <title>Consultar marca e celular</title>
+</head>
+<body>
+   <h1>Consultar Marca e Celular</h1>
+   <hr/>
+   <div>
+       <table>
+           <tr>
+              <td>Marcas</td>
+              <td>{{ marcas | safe }}</td>
+           </tr>
+       </table>
+       <br/>
+       <button onclick="exec()">Consultar Celulares</button>
+   </div>
+   <br/>
+   <div id="divCelulares">
+       Resultado
+   </div>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
+</body>
+</html>
+
+<script>
+   function exec(){
+     var idIdt = document.getElementById("idt").value;
+     chamarURL("\celulares", "divCelulares", "marca=" + idIdt);
+   }
+</script>
