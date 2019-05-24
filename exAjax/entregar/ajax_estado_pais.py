@@ -45,3 +45,47 @@ def softwares():
    estados += "</TABLE>"
 
    return render_template('ajax.html', AJAX=estados)
+
+@app.route('/combos')
+def combos():
+   # Recuperando Estados existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT * FROM tb_pais ORDER BY nme_pais;"
+
+   cs = mysql.consultar(comando, ())
+   sel = "<SELECT NAME='pasis' id='idtPais' onclick='execPaises()'>"
+   sel += "<OPTION VALUE='0'>Escolha um País</OPTION>"
+   for [idt, nome] in cs:
+       sel += "<OPTION VALUE='" + str(idt) + "'>" + nome + "</OPTION>"
+   sel += "</SELECT>"
+   cs.close()
+   return render_template('combos.html', paises=sel)
+
+
+@app.route('/estado', methods = ['POST'])
+def soft():
+   # Recuperando Estados existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT idt_estado, nme_estado FROM tb_estado WHERE cod_pais=%s ORDER BY nme_estado;"
+   idtPais = request.form['pais']
+   cs = mysql.consultar(comando, [idtPais])
+   sel = "<SELECT NAME='estado' id='idtEstado' onclick='execEstados()'>"
+   sel += "<OPTION VALUE='0'>Escolha um Estado</OPTION>"
+   for [idt, nome] in cs:
+       sel += "<OPTION VALUE='" + str(idt) + "'>" + nome + "</OPTION>"
+   sel += "</SELECT>"
+   cs.close()
+   return render_template('AJAX.html', AJAX=sel)
+
+
+@app.route('/ver', methods = ['POST'])
+def ver():
+   # Recuperando Estados existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT populacao_estado FROM tb_estado WHERE idt_estado=%s;"
+   idtEstado = request.form['estado']
+   cs = mysql.consultar(comando, [idtEstado])
+   dados = cs.fetchone()
+   sel = dados[0]
+   cs.close()
+   return render_template('AJAX.html', AJAX=sel)

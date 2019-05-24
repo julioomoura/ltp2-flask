@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+   <meta charset="UTF-8">
+   <link href="static/ajax.css" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="static/ajax.js"></script>
+   <title>Combos associadas</title>
 </head>
 <body>
-
+   <h1>Combos que quando selecionar um item filtra outra combo</h1>
+   <hr/>
+   <div>
+       <table>
+           <tr>
+              <td>Tipos de Software:</td>
+              <td>{{ tipos | safe }}</td>
+           </tr>
+           <tr>
+              <td>Softwares:</td>
+              <td><span id="idSoft"></span></td>
+           </tr>
+           <tr>
+              <td>Versão:</td>
+              <td><span id="idVer"></span></td>
+           </tr>
+       </table>
+       <br/>
+   </div>
+   <br/>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
 </body>
 </html>
+
+<script>
+   function execTipos(){
+     var idIdt = document.getElementById("idtTipo").value;
+     chamarURL("/soft", "idSoft", "tipo=" + idIdt);
+   }
+
+   function execSofts(){
+     var idIdt = document.getElementById("idtSoft").value;
+     chamarURL("/ver", "idVer", "soft=" + idIdt);
+   }
+</script>
