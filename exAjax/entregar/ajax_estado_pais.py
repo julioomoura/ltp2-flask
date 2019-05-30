@@ -89,3 +89,43 @@ def ver():
    sel = dados[0]
    cs.close()
    return render_template('AJAX.html', AJAX=sel)
+
+@app.route('/org')
+def org():
+   # Recuperando Estados existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT * FROM tb_pais ORDER BY nme_pais;"
+
+   cs = mysql.consultar(comando, ())
+   comandoSoft = "SELECT nme_estado, populacao_estado FROM tb_estado WHERE cod_pais=%s ORDER BY nme_estado;"
+
+   arv=""
+   for [idt, nome] in cs:
+       arv += ", [{v:'pais_" + str(idt) + "', f:'" + nome + "'}, 'paises', 'País: " + nome + "']"
+       mysqlSoft = sql.SQL("root", "root", "test")
+       csSoft = mysqlSoft.consultar(comandoSoft, [idt])
+       for [estado, populacao] in csSoft:
+           arv += ", ['" + estado + "', 'pais_" + str(idt) + "', '" + estado + " - " + str(populacao) + "']"
+       csSoft.close()
+   cs.close()
+
+   return render_template('org.html', arvore=arv)
+
+
+@app.route('/pizza')
+def pizza():
+   # Recuperando Estados existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT nme_pais, COUNT(idt_estado) AS qtd FROM tb_pais JOIN tb_estado ON idt_pais=cod_pais GROUP BY nme_pais;"
+
+   cs = mysql.consultar(comando, ())
+
+   grf = ""
+   i = 0
+   for [nome, qtd] in cs:
+       grf += "['" + nome + "', " + str(qtd) + "],"
+       i += 1
+   cs.close()
+   grf = grf[:-1]
+
+   return render_template('pizza.html', pizza=grf)

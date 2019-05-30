@@ -89,3 +89,43 @@ def ver():
    sel = dados[0]
    cs.close()
    return render_template('AJAX.html', AJAX=sel)
+
+
+@app.route('/org')
+def org():
+   # Recuperando Tipos de Software existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT * FROM tb_tipo ORDER BY nme_tipo;"
+
+   cs = mysql.consultar(comando, ())
+   comandoSoft = "SELECT nme_software, ver_software FROM tb_software WHERE cod_tipo=%s ORDER BY nme_software;"
+
+   arv=""
+   for [idt, nome] in cs:
+       arv += ", [{v:'tipo_" + str(idt) + "', f:'" + nome + "'}, 'tipos', 'Tipo de Software: " + nome + "']"
+       mysqlSoft = sql.SQL("root", "root", "test")
+       csSoft = mysqlSoft.consultar(comandoSoft, [idt])
+       for [soft, versao] in csSoft:
+           arv += ", ['" + soft + "', 'tipo_" + str(idt) + "', '" + soft + " - " + versao + "']"
+       csSoft.close()
+   cs.close()
+
+   return render_template('org.html', arvore=arv)
+
+
+@app.route('/barras')
+def barras():
+   # Recuperando Tipos de Software existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT nme_tipo, COUNT(idt_software) AS qtd FROM tb_tipo JOIN tb_software ON idt_tipo=cod_tipo GROUP BY nme_tipo;"
+
+   cs = mysql.consultar(comando, ())
+
+   grf = ""
+   i = 0
+   for [nome, qtd] in cs:
+       grf += ", ['" + nome + "', " + str(qtd) + ", '#9999FF']"
+       i += 1
+   cs.close()
+
+   return render_template('barras.html', barras=grf)
