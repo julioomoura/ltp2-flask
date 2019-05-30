@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+   <meta charset="UTF-8">
+   <link href="static/ajax.css" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="static/ajax.js"></script>
+   <title>Combos associadas</title>
 </head>
 <body>
-
+   <h1>Combos que quando selecionar um item filtra outra combo</h1>
+   <hr/>
+   <div>
+       <table>
+           <tr>
+              <td>Marcas de celular:</td>
+              <td>{{ marcas | safe }}</td>
+           </tr>
+           <tr>
+              <td>Celulares:</td>
+              <td><span id="idCelular"></span></td>
+           </tr>
+           <tr>
+              <td>Preço:</td>
+              <td><span id="idPreco"></span></td>
+           </tr>
+       </table>
+       <br/>
+   </div>
+   <br/>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
 </body>
 </html>
+
+<script>
+   function execMarcas(){
+     var idIdt = document.getElementById("idtMarca").value;
+     chamarURL("/celular", "idCelular", "marca=" + idIdt);
+   }
+
+   function execCelulares(){
+     var idIdt = document.getElementById("idtCelular").value;
+     chamarURL("/ver", "idPreco", "celular=" + idIdt);
+   }
+</script>

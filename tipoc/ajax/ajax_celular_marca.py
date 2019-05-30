@@ -45,3 +45,47 @@ def softwares():
    celulares += "</TABLE>"
 
    return render_template('ajax.html', AJAX=celulares)
+
+@app.route('/combos')
+def combos():
+   # Recuperando Celulares existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT * FROM tb_marca ORDER BY nme_marca;"
+
+   cs = mysql.consultar(comando, ())
+   sel = "<SELECT NAME='marca' id='idtMarca' onclick='execMarcas()'>"
+   sel += "<OPTION VALUE='0'>Escolha uma Marca</OPTION>"
+   for [idt, nome] in cs:
+       sel += "<OPTION VALUE='" + str(idt) + "'>" + nome + "</OPTION>"
+   sel += "</SELECT>"
+   cs.close()
+   return render_template('combos.html', marcas=sel)
+
+
+@app.route('/celular', methods = ['POST'])
+def celular():
+   # Recuperando celulares existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT idt_celular, nome_celular FROM tb_celular WHERE cod_marca=%s ORDER BY nome_celular;"
+   idtMarca = request.form['marca']
+   cs = mysql.consultar(comando, [idtMarca])
+   sel = "<SELECT NAME='celular' id='idtCelular' onclick='execCelulares()'>"
+   sel += "<OPTION VALUE='0'>Escolha um Celular</OPTION>"
+   for [idt, nome] in cs:
+       sel += "<OPTION VALUE='" + str(idt) + "'>" + nome + "</OPTION>"
+   sel += "</SELECT>"
+   cs.close()
+   return render_template('AJAX.html', AJAX=sel)
+
+
+@app.route('/ver', methods = ['POST'])
+def ver():
+   # Recuperando celulares existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT preco_celular FROM tb_celular WHERE idt_celular=%s;"
+   idtCelular = request.form['celular']
+   cs = mysql.consultar(comando, [idtCelular])
+   dados = cs.fetchone()
+   sel = dados[0]
+   cs.close()
+   return render_template('AJAX.html', AJAX=sel)
