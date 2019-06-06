@@ -89,3 +89,24 @@ def ver():
    sel = dados[0]
    cs.close()
    return render_template('AJAX.html', AJAX=sel)
+
+@app.route('/org')
+def org():
+   # Recuperando Celulares existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT * FROM tb_marca ORDER BY nme_marca;"
+
+   cs = mysql.consultar(comando, ())
+   comandoCelular = "SELECT nome_celular, preco_celular FROM tb_celular WHERE cod_marca=%s ORDER BY nome_celular;"
+
+   arv=""
+   for [idt, nome] in cs:
+       arv += ", [{v:'marca_" + str(idt) + "', f:'" + nome + "'}, 'marcas', 'Marca: " + nome + "']"
+       mysqlCelular = sql.SQL("root", "root", "test")
+       csCelular = mysqlCelular.consultar(comandoCelular, [idt])
+       for [celular, preco] in csCelular:
+           arv += ", ['" + celular + "', 'marca_" + str(idt) + "', '" + celular + " R$ " + str(preco) + "']"
+       csCelular.close()
+   cs.close()
+
+   return render_template('org.html', arvore=arv)
