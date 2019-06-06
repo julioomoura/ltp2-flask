@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <title>Gráfico de Pizza</title>
+    </head>
+    <body>
+    <h1 style="color: brown">Gráfico de Pizza</h1>
+    <hr/>
+    <div id="piechart" style="width: 900px; height: 500px;">
+
+    </div>
+    <hr/>
+    <br/>
+    <a href="/"> Voltar ao Menu </a>
+    </body>
+</html>
+
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+
+    var data = google.visualization.arrayToDataTable([
+        ['Marca', 'Celular'],
+        {{ pizza | safe }}
+    ]);
+
+    var options = {
+      title: 'Celulares por marca'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+    chart.draw(data, options);
+  }
+</script>
