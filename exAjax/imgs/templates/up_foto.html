@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/pessoas.css" rel="stylesheet" type="text/css">
+   <title>Formulário para cadastrar pessoa</title>
+</head>
+<body>
+   <h1>Formulário para cadastrar pessoa</h1>
+   <hr/>
+   <form action="/getfoto" method="post" enctype="multipart/form-data">
+       <table>
+           <tr>
+               <td>Nome da Pessoa:</td>
+               <td><input type="text" name="pNome" size="50" maxlength="50" required/></td>
+           </tr>
+           <tr>
+               <td>Endereço:</td>
+               <td><input type="text" name="pEndereco" size="50" maxlength="50" required/></td>
+           </tr>
+           <tr>
+               <td>Telefone:</td>
+               <td><input type="text" name="pTelefone" size="50" maxlength="50" required/></td>
+           </tr>
+           <tr>
+               <td>Imagem:</td>
+               <td><input type="file" name="pFoto" required/></td>
+           </tr>
+       </table>
+       <br/>
+       <input type="submit" value="Cadastrar Pessoa"/>
+   </form>
+   <hr/>
+   <br/>
+   <a href="/"> Voltar ao Menu </a>
+</body>
+</html>

@@ -128,3 +128,18 @@ def pizza():
    grf = grf[:-1]
 
    return render_template('pizza.html', pizza=grf)
+
+@app.route('/column')
+def area():
+    mysql = sql.SQL("root", "root", "test")
+    comando ="SELECT nme_turma, AVG(vlr_nota_aluno) AS nota_media FROM tb_turma JOIN ta_cursando ON idt_turma=cod_turma JOIN tb_aluno ON idt_aluno=cod_aluno GROUP BY nme_turma; "
+    cs = mysql.consultar(comando, ())
+
+    don = ""
+    i=0
+    for [aluno, nota] in cs:
+        don += "['" + aluno + "', " + str(nota) + ", 'gold'],"
+        i += 1
+    cs.close()
+    don = don[:-1]
+    return render_template('column.html', column = don)
