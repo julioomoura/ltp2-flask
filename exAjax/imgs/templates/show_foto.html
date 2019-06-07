@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+   <meta charset="UTF-8">
+   <link href="static/pessoas.css" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="static/ajax.js"></script>
+   <title>Galeria de Pessoas</title>
+</head>
+<body>
+   <h1>Galeria de Pessoas</h1>
+   <hr/>
+   <br/>
+   <div style="border: 1px solid; width: 48%; height: 480px; float: left; padding: 10px;">
+       <table style="width:98%">
+           <tr>
+               <td colspan="2">
+                   <span id="foto"></span>
+               </td>
+           </tr>
+           <tr>
+               <td><a href="#" onclick="volta()">Anterior</a></td>
+               <td><a href="#" onclick="frente()">Próximo</a></td>
+           </tr>
+       </table>
+
+   </div>
+   <div style="border: 1px solid; width: 48%; height: 480px; float: right; padding: 10px;" id="detalhes">
+
+   </div>
+</body>
+</html>
+
+<script>
+   codigos = [{{ codigos }}];
+   indice=0;
+
+   function volta(){
+       if (indice>0) indice--;
+       mostrar(indice);
+   }
+
+   function frente(){
+       if(indice<(codigos.length-1)) indice++;
+       mostrar(indice);
+   }
+
+   function mostrar(idt){
+       chamarURL("\foto", "foto", "idt=" + codigos[idt]);
+       chamarURL("\getDetail", "detalhes", "idt=" + codigos[idt]);
+   }
+
+   mostrar(indice);
+</script>
