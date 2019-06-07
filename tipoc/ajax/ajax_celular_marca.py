@@ -143,3 +143,21 @@ def area():
     cs.close()
     don = don[:-1]
     return render_template('column.html', column = don)
+
+@app.route('/donut')
+def donut():
+   # Recuperando Celulares existentes na base de dados
+   mysql = sql.SQL("root", "root", "test")
+   comando = "SELECT nme_marca, COUNT(idt_celular) AS qtd FROM tb_marca JOIN tb_celular ON idt_marca=cod_marca GROUP BY nme_marca;"
+
+   cs = mysql.consultar(comando, ())
+
+   grf = ""
+   i = 0
+   for [nome, qtd] in cs:
+       grf += "['" + nome + "', " + str(qtd) + "],"
+       i += 1
+   cs.close()
+   grf = grf[:-1]
+
+   return render_template('donut.html', donut=grf)

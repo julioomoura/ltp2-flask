@@ -24,7 +24,7 @@ def incluir():
 
    # Incluindo dados no SGBD
    mysql = sql.SQL("root", "root", "test")
-   comando = "INSERT INTO tb_celular(marca_celular, nome_celular, sistema_operacional, preco_celular) VALUES (%s, %s, %s, %s);"
+   comando = "INSERT INTO tb_celular_crud(marca_celular, nome_celular, sistema_operacional, preco_celular) VALUES (%s, %s, %s, %s);"
 
    if mysql.executar(comando, [marca, nome, sistema, preco]):
        msg="Celular " + nome + " cadastrado com sucesso!"
@@ -37,7 +37,7 @@ def incluir():
 def parConsultar():
    # Recuperando modelos existentes na base de dados
    mysql = sql.SQL("root", "root", "test")
-   comando = "SELECT DISTINCT nome_celular FROM tb_celular ORDER BY nome_celular;"
+   comando = "SELECT DISTINCT nome_celular FROM tb_celular_crud ORDER BY nome_celular;"
 
    cs = mysql.consultar(comando, ())
    sel = "<SELECT NAME='nome'>"
@@ -48,7 +48,7 @@ def parConsultar():
    cs.close()
 
    # Recuperando menor e maior valor de celular
-   comando="SELECT MIN(preco_celular) AS menor, MAX(preco_celular) AS maior FROM tb_celular;"
+   comando="SELECT MIN(preco_celular) AS menor, MAX(preco_celular) AS maior FROM tb_celular_crud;"
    cs = mysql.consultar(comando, ())
    dados = cs.fetchone()
    menor = dados[0]
@@ -69,7 +69,7 @@ def consultar():
 
    # Recuperando nomes que satisfazem aos parâmetros de filtragem
    mysql = sql.SQL("root", "root", "test")
-   comando = "SELECT * FROM tb_celular WHERE nome_celular LIKE CONCAT('%', %s, '%') AND preco_celular BETWEEN %s AND %s ORDER BY preco_celular;"
+   comando = "SELECT * FROM tb_celular_crud WHERE nome_celular LIKE CONCAT('%', %s, '%') AND preco_celular BETWEEN %s AND %s ORDER BY preco_celular;"
 
    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF8')
 
@@ -97,7 +97,7 @@ def formAlterar():
 
    # Recuperando modelos que satisfazem aos parâmetros de filtragem
    mysql = sql.SQL("root", "root", "test")
-   comando = "SELECT * FROM tb_celular WHERE nome_celular=%s;"
+   comando = "SELECT * FROM tb_celular_crud WHERE nome_celular=%s;"
 
    cs = mysql.consultar(comando, [nome])
    dados = cs.fetchone()
@@ -116,7 +116,7 @@ def alterar():
 
    # Alterando dados no SGBD
    mysql = sql.SQL("root", "root", "test")
-   comando = "UPDATE tb_celular SET marca_celular=%s, nome_celular=%s, sistema_operacional=%s, preco_celular=%s WHERE idt_celular=%s;"
+   comando = "UPDATE tb_celular_crud SET marca_celular=%s, nome_celular=%s, sistema_operacional=%s, preco_celular=%s WHERE idt_celular=%s;"
 
    if mysql.executar(comando, [marca, nome, sistema, preco, idt]):
        msg="Celular " + marca + " alterado com sucesso!"
@@ -129,7 +129,7 @@ def alterar():
 def parExcluir():
    # Recuperando todos os celulares da base de dados
    mysql = sql.SQL("root", "root", "test")
-   comando = "SELECT idt_celular, marca_celular, nome_celular, sistema_operacional, preco_celular FROM tb_celular ORDER BY preco_celular;"
+   comando = "SELECT idt_celular, marca_celular, nome_celular, sistema_operacional, preco_celular FROM tb_celular_crud ORDER BY preco_celular;"
 
    cs = mysql.consultar(comando, ())
    celulares = ""
@@ -150,7 +150,7 @@ def excluir():
 
    # Alterando dados no SGBD
    mysql = sql.SQL("root", "root", "test")
-   comando = "DELETE FROM tb_celular WHERE itd_celular=%s;"
+   comando = "DELETE FROM tb_celular_crud WHERE itd_celular=%s;"
 
    if mysql.executar(comando, [idt]):
        msg="Celular excluído com sucesso!"
