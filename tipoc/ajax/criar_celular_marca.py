@@ -36,3 +36,15 @@ comando = "INSERT INTO tb_celular(nome_celular, preco_celular, cod_marca) VALUES
 
 if mysql.executar(comando, ()):
    print("Celulares cadastrados com sucesso!")
+
+comando = "DROP TABLE IF EXISTS tb_marca_empresa;"
+
+if mysql.executar(comando, ()):
+   print ("Tabela de celular excluída com sucesso!")
+
+comando = "CREATE TABLE tb_marca_empresa (idt_empresa INT AUTO_INCREMENT PRIMARY KEY, nme_empresa VARCHAR(50) NOT NULL, lat_empresa DECIMAL(6,4) NOT NULL, long_empresa DECIMAL(7,4) NOT NULL);"
+
+if mysql.executar(comando, ()):
+   print ("Tabela de marca excluída com sucesso!")
+
+comando = "INSERT INTO tb_marca_empresa(nme_empresa, lat_empresa, long_empresa) VALUES ('Apple', 37.3348544, -122.0112817), ('Samsung', 37.4926392, 127.025337), ('Xiaomi', 23.1267929, 113.2801879), ('Motorola', 23.114468, 113.3148367), ('Huawei', 31.215829, 121.5278043), ('LG', 37.565315, 126.8256347);"

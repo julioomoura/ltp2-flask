@@ -150,7 +150,7 @@ def excluir():
 
    # Alterando dados no SGBD
    mysql = sql.SQL("root", "root", "test")
-   comando = "DELETE FROM tb_celular_crud WHERE itd_celular=%s;"
+   comando = "DELETE FROM tb_celular_crud WHERE idt_celular=%s;"
 
    if mysql.executar(comando, [idt]):
        msg="Celular excluído com sucesso!"

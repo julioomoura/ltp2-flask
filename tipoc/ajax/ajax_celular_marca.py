@@ -161,3 +161,18 @@ def donut():
    grf = grf[:-1]
 
    return render_template('donut.html', donut=grf)
+
+@app.route('/mapa')
+def map():
+    mysql = sql.SQL("root", "root", "test")
+    comando ="SELECT * FROM tb_marca_empresa ORDER BY nme_empresa; "
+    cs = mysql.consultar(comando, ())
+
+    map = ""
+    i=0
+    for [idt, nome, latitude, longitude] in cs:
+        map += "[" + str(latitude) + ", " + str(longitude) + ", '" + nome + "'],"
+        i += 1
+    cs.close()
+
+    return render_template('mapa.html', map = map)
