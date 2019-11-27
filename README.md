@@ -1,3 +1,5 @@
-Repositório usado para versionar estudos da disciplina Linguagem e Técnicas de Programação
+# Linguagens e Técnicas de Programação 2
 
-Nessa disciplina usou-se Python, MySQL e Flask.
+- Flask
+- Python
+- MySQL
